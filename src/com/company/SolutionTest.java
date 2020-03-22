@@ -19,11 +19,11 @@ class SolutionTest {
         Solution solution2 = new Solution();
         assertEquals(-1, solution2.orangesRotting(new int[][] { { 2,1,1}, { 0,1,1 }, { 1,0,1} }));
     }
-//
-//    @Test
-//    @DisplayName("{ 0,2 }")
-//    public void test3() {
-//        Solution solution3 = new Solution();
-//        assertEquals(4, solution3.orangesRotting(new int[] { 0,2 }));
-//    }
+
+    @Test
+    @DisplayName("{ 0,2 }")
+    public void test3() {
+        Solution solution3 = new Solution();
+        assertEquals(0, solution3.orangesRotting(new int[][] { {0,2} }));
+    }
 }

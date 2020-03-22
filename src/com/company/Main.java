@@ -20,9 +20,11 @@ class Solution {
     class Orange {
         int x;
         int y;
-        public Orange(int x, int y) {
+        int minuteRotten;
+        public Orange(int x, int y, int minuteRotten) {
             this.x = x;
             this.y = y;
+            this.minuteRotten = minuteRotten;
         }
     }
     public static boolean stillUnrotten(int[][] numbers){
@@ -47,26 +49,28 @@ class Solution {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 2) {
                     System.out.println("Init Added i " + i + " j " + j);
-                    OQue.add(new Orange(i,j));
+                    OQue.add(new Orange(i, j, 0));
                 }
             }
         }
         int minutes = 0;
 
         while (!OQue.isEmpty()){
-            Orange o = OQue.remove();
+//            Orange o = OQue.remove();
+            Orange o = OQue.poll();
+            minutes = Math.max(minutes, o.minuteRotten);
             System.out.println("Removed i " + o.x + " j " + o.y);
             for(int[] dir: directions){
                 if ((o.x+dir[0] < m) && (o.x+dir[0] >= 0) &&
                     (o.y+dir[1] < n) && (o.y+dir[1] >= 0) &&
-                        (grid[o.x+dir[0]][o.y+dir[1]]== 1)){
+                        (grid[o.x+dir[0]][o.y+dir[1]]== 1) &&
+                        (grid[o.x][o.y]== 2)) {
                         System.out.println("Added i " + (o.x+dir[0]) + " j " + (o.y+dir[1]));
                         System.out.println("min " + minutes);
                     grid[o.x+dir[0]][o.y+dir[1]]= 2;
-                    OQue.add(new Orange(o.x+dir[0], o.y+dir[1]));
+                    OQue.add(new Orange(o.x+dir[0], o.y+dir[1], o.minuteRotten+1));
                 }
             }
-            minutes++;
         }
 
         if (stillUnrotten(grid)) return -1;
