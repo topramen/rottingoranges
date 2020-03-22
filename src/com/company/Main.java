@@ -48,7 +48,7 @@ class Solution {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 2) {
-                    System.out.println("Init Added i " + i + " j " + j);
+                    System.out.println("Init Added (" + i + ", " + j + ")" + " : 0" );
                     OQue.add(new Orange(i, j, 0));
                 }
             }
@@ -59,16 +59,18 @@ class Solution {
 //            Orange o = OQue.remove();
             Orange o = OQue.poll();
             minutes = Math.max(minutes, o.minuteRotten);
-            System.out.println("Removed i " + o.x + " j " + o.y);
+            System.out.println("Removed (" + o.x + " ," + o.y + ") : "+ (o.minuteRotten));
             for(int[] dir: directions){
                 if ((o.x+dir[0] < m) && (o.x+dir[0] >= 0) &&
                     (o.y+dir[1] < n) && (o.y+dir[1] >= 0) &&
                         (grid[o.x+dir[0]][o.y+dir[1]]== 1) &&
                         (grid[o.x][o.y]== 2)) {
-                        System.out.println("Added i " + (o.x+dir[0]) + " j " + (o.y+dir[1]));
-                        System.out.println("min " + minutes);
+                        System.out.println("minutes " + minutes);
+                        System.out.println("minuteRotten+1 " + (o.minuteRotten+1));
                     grid[o.x+dir[0]][o.y+dir[1]]= 2;
                     OQue.add(new Orange(o.x+dir[0], o.y+dir[1], o.minuteRotten+1));
+                    System.out.println("Added (" + (o.x+dir[0]) + " ," + (o.y+dir[1]) + ") : "  + (o.minuteRotten+1));
+
                 }
             }
         }
